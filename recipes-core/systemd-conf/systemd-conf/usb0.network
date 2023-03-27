@@ -1,0 +1,13 @@
+[Match]
+Name=usb0
+
+[Network]
+Address=192.168.20.2/24
+DHCPServer=true
+IgnoreCarrierLoss=yes
+ConfigureWithoutCarrier=yes
+
+[DHCPServer]
+PoolOffset=30
+PoolSize=10
+DNS=192.168.20.1
