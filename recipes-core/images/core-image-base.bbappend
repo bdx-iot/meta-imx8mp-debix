@@ -16,7 +16,7 @@ IMAGE_INSTALL:append = " \
 	e2fsprogs-e2fsck \
 	e2fsprogs-resize2fs \
 	e2fsprogs-mke2fs \
-	${@bb.utils.contains('MACHINE_FEATURES','optee','optee-client optee-os optee-test','',d)} \
+	${@bb.utils.contains('MACHINE_FEATURES','optee','optee-client optee-os optee-test optee-examples','',d)} \
     linux-firmware-bcm43455 \
 	procps \
 	psplash \
