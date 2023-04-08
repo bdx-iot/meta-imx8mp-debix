@@ -1,7 +1,7 @@
-From 22eabb5bdc98af5fa305e88adc441278749e11e8 Mon Sep 17 00:00:00 2001
+From bc7b4cd3d868727baa3de7a00ef21bac8d853e63 Mon Sep 17 00:00:00 2001
 From: Joris Offouga <offougajoris@gmail.com>
 Date: Wed, 22 Mar 2023 22:46:15 +0100
-Subject: [PATCH] add support for imx8mp debix board
+Subject: [PATCH 1/2] add support for imx8mp debix board
 
 Signed-off-by: Joris Offouga <offougajoris@gmail.com>
 ---
@@ -16,10 +16,10 @@ Signed-off-by: Joris Offouga <offougajoris@gmail.com>
  board/debix/imx8mp/imximage-8mp-lpddr4.cfg |    9 +
  board/debix/imx8mp/lpddr4_timing.c         | 1854 ++++++++++++++++++++
  board/debix/imx8mp/spl.c                   |  185 ++
- configs/imx8mp_debix_defconfig             |  135 ++
+ configs/imx8mp_debix_defconfig             |  143 ++
  drivers/ddr/imx/phy/ddrphy_utils.c         |   13 +
  include/configs/imx8mp_debix.h             |  123 ++
- 14 files changed, 3624 insertions(+), 2 deletions(-)
+ 14 files changed, 3632 insertions(+), 2 deletions(-)
  create mode 100644 arch/arm/dts/imx8mp-debix-u-boot.dtsi
  create mode 100755 arch/arm/dts/imx8mp-debix.dts
  create mode 100644 board/debix/imx8mp/Kconfig
@@ -3475,10 +3475,10 @@ index 0000000000..d125ae52ca
 +}
 diff --git a/configs/imx8mp_debix_defconfig b/configs/imx8mp_debix_defconfig
 new file mode 100644
-index 0000000000..cf08137342
+index 0000000000..3add6898e2
 --- /dev/null
 +++ b/configs/imx8mp_debix_defconfig
-@@ -0,0 +1,135 @@
+@@ -0,0 +1,143 @@
 +CONFIG_ARM=y
 +CONFIG_ARCH_IMX8M=y
 +CONFIG_SYS_TEXT_BASE=0x40200000
@@ -3499,6 +3499,7 @@ index 0000000000..cf08137342
 +CONFIG_SPL_SERIAL=y
 +CONFIG_SPL_DRIVERS_MISC=y
 +CONFIG_SPL=y
++CONFIG_ENV_OFFSET_REDUND=0x404000
 +CONFIG_SPL_IMX_ROMAPI_LOADADDR=0x48000000
 +CONFIG_OF_BOARD_FIXUP=y
 +CONFIG_DISTRO_DEFAULTS=y
@@ -3506,9 +3507,13 @@ index 0000000000..cf08137342
 +# CONFIG_ANDROID_BOOT_IMAGE is not set
 +CONFIG_FIT=y
 +CONFIG_FIT_EXTERNAL_OFFSET=0x3000
++CONFIG_FIT_SIGNATURE=y
++CONFIG_FIT_VERBOSE=y
 +CONFIG_SPL_LOAD_FIT=y
++CONFIG_LEGACY_IMAGE_FORMAT=y
 +CONFIG_OF_BOARD_SETUP=y
 +CONFIG_OF_SYSTEM_SETUP=y
++CONFIG_BOOTARGS_SUBST=y
 +CONFIG_BOOTCOMMAND="run distro_bootcmd;run bsp_bootcmd"
 +CONFIG_DEFAULT_FDT_FILE="imx8mp-debix-evk.dtb"
 +CONFIG_BOARD_EARLY_INIT_F=y
@@ -3530,6 +3535,7 @@ index 0000000000..cf08137342
 +CONFIG_CMD_ERASEENV=y
 +# CONFIG_CMD_CRC32 is not set
 +CONFIG_CMD_MEMTEST=y
++CONFIG_CMD_ZIP=y
 +CONFIG_CMD_CLK=y
 +CONFIG_CMD_FUSE=y
 +CONFIG_CMD_GPIO=y
@@ -3548,6 +3554,7 @@ index 0000000000..cf08137342
 +CONFIG_ENV_OVERWRITE=y
 +CONFIG_ENV_IS_NOWHERE=y
 +CONFIG_ENV_IS_IN_MMC=y
++CONFIG_SYS_REDUNDAND_ENVIRONMENT=y
 +CONFIG_SYS_RELOC_GD_ENV_ADDR=y
 +CONFIG_ENV_VARS_UBOOT_RUNTIME_CONFIG=y
 +CONFIG_VERSION_VARIABLE=y
@@ -3609,6 +3616,7 @@ index 0000000000..cf08137342
 +CONFIG_USB_GADGET_MANUFACTURER="FSL"
 +CONFIG_USB_GADGET_VENDOR_NUM=0x1fc9
 +CONFIG_USB_GADGET_PRODUCT_NUM=0x0152
++# CONFIG_RSA is not set
 +CONFIG_LZO=y
 +CONFIG_BZIP2=y
 +CONFIG_HEXDUMP=y

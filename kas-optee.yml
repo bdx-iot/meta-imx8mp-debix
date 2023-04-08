@@ -1,7 +1,0 @@
-header:
-  version: 8
-
-local_conf_header:
-    stm32mp1: |
-        DISTRO_FEATURES:append = " optee"
-        MACHINE_FEATURES:append = " optee"
